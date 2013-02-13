@@ -19,6 +19,12 @@ class Module implements AutoloaderProviderInterface
                     $client = new \Zend\Http\Client;
                     $client->setAdapter(new \Zend\Http\Client\Adapter\Curl);
 
+		    if (isset($apiConfig['curloptions'])) {
+                        foreach($apiConfig['curloptions'] as $name=>$value) {
+                            $client->getAdapter()->setCurlOption($name, $value);
+                        }
+                    }
+
                     $request = new \SpeckPaypal\Service\Request;
                     $request->setClient($client);
                     $request->setConfig(
