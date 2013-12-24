@@ -81,7 +81,7 @@ class Response
         if(isset($response['ERRORS'])) {
             foreach($response['ERRORS'] as $error) {
                 if(isset($error['LONGMESSAGE'])) {
-                    $this->addErrorMessage($error['LONGMESSAGE']);
+                    $this->addErrorMessage($error['LONGMESSAGE'], $error['ERRORCODE']);
                 }
             }
         } else {
@@ -117,9 +117,13 @@ class Response
      * @param $errorMessage
      * @return AbstractResponse
      */
-    public function addErrorMessage($errorMessage)
+    public function addErrorMessage($errorMessage, $errorCode=false)
     {
-        array_push($this->_errors, $errorMessage);
+        if (!$errorCode) {
+            array_push($this->_errors, $errorMessage);
+        } else {
+            $this->erros[$errorCode] = $errorMessage;
+        }
 
         return $this;
     }
