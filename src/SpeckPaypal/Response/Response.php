@@ -122,7 +122,7 @@ class Response
         if (!$errorCode) {
             array_push($this->_errors, $errorMessage);
         } else {
-            $this->erros[$errorCode] = $errorMessage;
+            $this->_errors[$errorCode] = $errorMessage;
         }
 
         return $this;
